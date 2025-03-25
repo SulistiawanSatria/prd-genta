@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const Product = require("../models/product_models");
-const Review = require("../models/review_models"); // Penyesuaian nama variabel
+const Review = require("../models/review_models"); 
 
 const getAllProducts = async (req, res) => {
     try {
-        const products = await Product.find().lean(); // Tambahkan `.lean()` untuk mengembalikan plain JavaScript object
+        const products = await Product.find().lean(); 
 
         res.json({
             success: true,
@@ -21,11 +21,12 @@ const getProductById = async (req, res) => {
         const { id } = req.params;
 
         // Pastikan ID yang diterima adalah valid ObjectId
-        if (!mongoose.Types.ObjectId.isValid(id)) {
+        if (!mongoose.isValidObjectId(id)) {
             return res.status(400).json({ message: "Invalid product ID" });
         }
 
         const product = await Product.findById(id).lean();
+        console.log(id);
 
         if (!product) {
             return res.status(404).json({ message: "Product not found" });
@@ -33,7 +34,8 @@ const getProductById = async (req, res) => {
 
         // Query review berdasarkan product_id
         const reviews = await Review.find({ product_id: id }).lean();
-        product.reviews = reviews; // Menambahkan reviews ke dalam object product
+        // Menambahkan reviews ke dalam object product
+        product.reviews = reviews;
 
         res.json({
             success: true,

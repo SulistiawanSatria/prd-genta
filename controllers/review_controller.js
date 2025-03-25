@@ -28,37 +28,6 @@ const editReviewById = async (req, res) => {
     }
 };
 
-// const filterReviews = async (req, res) => {
-//     try {
-//         const { type, rating } = req.query;
-//         let query = {};
-//         let sort = {};
 
-//         switch (type) {
-//             case "NewestReviews":
-//                 sort = { createdAt: -1 };
-//                 break;
-//             case "Photo/Video":
-//                 query = { image_user: { $ne: [] } };
-//                 break;
-//             case "Rating:All":
-//                 query = { rating: { $gte: 1, $lte: 5 } };
-//                 break;
-//             default:
-//                 query = { rating: Number(rating) };
-//                 break;
-//         }
-
-//         const reviews = await Review.find(query).sort(sort).lean();
-
-//         res.json({
-//             success: true,
-//             message: `Reviews filtered by ${type === "Rating:All" ? "Rating:All" : `Rating: ${rating}`}`,
-//             data: reviews,
-//         });
-//     } catch (error) {
-//         res.status(500).json({ message: "Error: Failed to filter reviews" });
-//     }
-// };
 
 module.exports = { getReviewByIdProduct , editReviewById};

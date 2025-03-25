@@ -14,17 +14,23 @@ const Product = new mongoose.Schema({
     image: {
         type : String, required: true},
 
-    reviews: [{type : mongoose.Schema.Types.ObjectId, ref : "Review"}]    
+    reviews: [{type : mongoose.Schema.Types.ObjectId, ref : "Review"}],
+    
 }, 
     {timestamps: true}
     
 );
 
 //membuat virtual untuk menghitung rata-rata rating
-Product.virtual("average_rating").get(function () {
+Product.virtual("rating").get(function () {
     if (!this.reviews || this.reviews.length === 0) return 0;
     const totalRating = this.reviews.reduce((acc, review) => acc + review.rating, 0);
     return totalRating / this.reviews.length;
+});
+
+Product.pre("save", function (next) {
+    this.rating = this.average_rating;
+    next();
 });
 
 //menghapus reviews dari JSON agar tidak muncul di respon
