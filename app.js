@@ -22,8 +22,10 @@ app.use((err, req, res, next) => {
     res.status(statusCode).json({ message: err.message });
 });
 
+const PORT = process.env.PORT || 8000; // Tambahkan default port 8000
+
 connectDB().then(() => {
-    app.listen(process.env.PORT, () => {
-        console.log(`Server running on port ${process.env.PORT}`);
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
     });
 });
