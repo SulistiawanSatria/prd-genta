@@ -56,8 +56,10 @@ const getProductById = async (req, res) => {
         await Product.findByIdAndUpdate(id, { rating: averageRating });
 
         // Tambahkan rating ke objek product
+        product.reviews = reviews;
         product.rating = averageRating;
-
+        console.log("Product:", product);
+        console.log(reviews);
 
         res.json({
             success: true,
