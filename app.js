@@ -4,15 +4,15 @@ const cors = require("cors");
 const connectDB = require("./connectors/db");
 const productRouter = require("./routers/product_router");
 const reviewRouter = require("./routers/review_router");
-// const cookieParser = require("cookie-parser");
+
 
 require("dotenv").config();
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
-// app.use(cookieParser());
+app.use(cors({ credentials: true, origin: "*" }));
 
+//route apps
 app.use("/api/products", productRouter);
 app.use("/api/reviews", reviewRouter);
 
@@ -22,7 +22,7 @@ app.use((err, req, res, next) => {
     res.status(statusCode).json({ message: err.message });
 });
 
-const PORT = process.env.PORT || 8000; // Tambahkan default port 8000
+const PORT = process.env.PORT || 8000; // Tambahkan default port 8000 untuk health check koyeb
 
 connectDB().then(() => {
     app.listen(PORT, () => {
