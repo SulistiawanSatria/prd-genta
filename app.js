@@ -4,7 +4,7 @@ const cors = require("cors");
 const connectDB = require("./connectors/db");
 const productRouter = require("./routers/product_router");
 const reviewRouter = require("./routers/review_router");
-
+const errorHandler = require("./middleware/error_handler");
 
 require("dotenv").config();
 
@@ -16,11 +16,8 @@ app.use(cors({ credentials: true, origin: "*" }));
 app.use("/api/products", productRouter);
 app.use("/api/reviews", reviewRouter);
 
-
-app.use((err, req, res, next) => {
-    const statusCode = err.statusCode || 500;
-    res.status(statusCode).json({ message: err.message });
-});
+// Error handling middleware
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 8000; // Tambahkan default port 8000 untuk health check koyeb
 

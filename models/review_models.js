@@ -22,6 +22,10 @@ const Review = new mongoose.Schema({
         type : String, required: true
     },
 
+    fileId: {
+        type : String, required: true
+    },
+
     size_user : {
         bust : {type : Number, required: true},
         waist : {type : Number, required: true},

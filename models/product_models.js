@@ -14,6 +14,9 @@ const Product = new mongoose.Schema({
     image: {
         type : String, required: true},
 
+    fileId: {
+        type : String, required: true},
+
     reviews: [{type : mongoose.Schema.Types.ObjectId, ref : "Review"}],
 
     rating : {
